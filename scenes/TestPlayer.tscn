@@ -15,6 +15,14 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_ylchu")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ylchu")
 }, {
 "duration": 1.0,
 "texture": ExtResource("3_48mwp")
@@ -60,8 +68,7 @@ script = ExtResource("1_48cbw")
 
 [node name="PlayerSpriteAnimated" type="AnimatedSprite2D" parent="." unique_id=308143250]
 sprite_frames = SubResource("SpriteFrames_k3vus")
-animation = &"Kick"
-frame_progress = 0.0069396812
+animation = &"Idle"
 
 [node name="CollisionBody" type="CollisionShape2D" parent="." unique_id=1480141035]
 position = Vector2(-313, -149)
