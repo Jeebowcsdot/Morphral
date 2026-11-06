@@ -18,7 +18,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"Idle",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -45,50 +45,52 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("9_p6vwq")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"Kick",
-"speed": 1.0
+"speed": 16.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uror3"]
 radius = 75.0
-height = 689.5796
+height = 575.8904
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ynpdj"]
-radius = 121.0
-height = 323.09113
+radius = 109.032776
+height = 218.06555
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3jck7"]
 radius = 36.985992
-height = 794.7384
+height = 745.13245
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ysfhm"]
+radius = 37.0
+height = 501.2008
 
 [node name="TestPlayer" type="CharacterBody2D" unique_id=1008101840]
 scale = Vector2(0.4, 0.4)
 script = ExtResource("1_48cbw")
 
 [node name="PlayerSpriteAnimated" type="AnimatedSprite2D" parent="." unique_id=308143250]
+position = Vector2(2.4999998, -2.4999998)
 sprite_frames = SubResource("SpriteFrames_k3vus")
 animation = &"Kick"
-frame = 5
-frame_progress = 0.29476947
 
 [node name="CollisionBody" type="CollisionShape2D" parent="." unique_id=1480141035]
-position = Vector2(-137.50002, -210.00002)
-rotation = -0.5778875
+position = Vector2(-112.49999, -182.5)
+rotation = -0.8935262
 shape = SubResource("CapsuleShape2D_uror3")
 
 [node name="CollisionPelvis" type="CollisionShape2D" parent="." unique_id=396085511]
-position = Vector2(3.8146973e-06, -132.5)
+position = Vector2(22.5, -145)
 rotation = 0.39595625
 shape = SubResource("CapsuleShape2D_ynpdj")
 
-[node name="CollisiionLegL" type="CollisionShape2D" parent="." unique_id=1009484157]
-position = Vector2(-20, 185)
-rotation = -0.01054959
+[node name="CollisionLegL" type="CollisionShape2D" parent="." unique_id=1009484157]
+position = Vector2(84.99999, 212.5)
+rotation = 0.0039530685
 shape = SubResource("CapsuleShape2D_3jck7")
 
-[node name="CollisionLegR" type="CollisionShape2D" parent="." unique_id=722430958]
-position = Vector2(272.5, -287.50003)
-rotation = -2.2376695
-scale = Vector2(0.99999994, 0.99999994)
-shape = SubResource("CapsuleShape2D_3jck7")
+[node name="CollisionLegR" type="CollisionShape2D" parent="." unique_id=2098614794]
+position = Vector2(89.99999, -237.5)
+rotation = 0.9075259
+shape = SubResource("CapsuleShape2D_ysfhm")
