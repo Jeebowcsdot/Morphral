@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://cl3atr0rsomux"]
+
+[ext_resource type="Script" uid="uid://c7elnmo58o7gd" path="res://Scripts/TestEnemy.cs" id="1_fwg11"]
+[ext_resource type="Texture2D" uid="uid://csgxbkor7i3na" path="res://icon.svg" id="2_b5pkw"]
+[ext_resource type="FontFile" uid="uid://beqmja1dckvv" path="res://Fonts/sigmarcyrillic.otf" id="3_amx23"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3jck7"]
+
+[node name="TestEnemy" type="RigidBody2D" unique_id=883147929 groups=["Enemy"]]
+script = ExtResource("1_fwg11")
+
+[node name="EnemySprite" type="Sprite2D" parent="." unique_id=1573185438]
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("2_b5pkw")
+
+[node name="EnemyCollision" type="CollisionShape2D" parent="." unique_id=2077214610]
+scale = Vector2(14.375, 14.375)
+shape = SubResource("RectangleShape2D_3jck7")
+
+[node name="DamageLabelTimer" type="Timer" parent="." unique_id=2087247098]
+
+[node name="DamageLabel" type="Label" parent="." unique_id=858562103]
+offset_left = -138.0
+offset_top = 20.0
+offset_right = -18.0
+offset_bottom = 89.0
+theme_override_fonts/font = ExtResource("3_amx23")
+theme_override_font_sizes/font_size = 64
+text = "6"

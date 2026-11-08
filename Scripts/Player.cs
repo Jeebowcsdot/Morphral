@@ -1,0 +1,69 @@
+using Godot;
+using System;
+
+/// <summary>
+/// the general player class with everything included that is needed for every player.
+/// </summary>
+
+public partial class Player : CharacterBody2D
+{
+	// Movement and Velocity
+	public Vector2 Direction { get; protected set; } = Vector2.Zero;
+	public  float Speed { get; protected set; } = 650.0f;
+
+	// Statistics and Combat
+	public float BaseAttack { get; protected set; } = 20.0f;
+	public  float KickDamage { get; protected set; } = 20.0f;
+	public float Defense { get; protected set; } = 25.0f;
+	
+	// (Child) Nodes
+	public Area2D DamageArea { get; protected set; }
+	
+	// Others
+	private RandomNumberGenerator _rng;
+
+	public override void _Ready()
+	{
+		DamageArea = GetNode<Area2D>("DmgArea");
+		DamageArea.BodyEntered += OnDmgBodyEntered;
+	}
+	
+	public override void _PhysicsProcess(double delta)
+	{
+		Direction = Input.GetVector("MoveLeft", "MoveRight", "MoveUp", "MoveDown");
+		Velocity = Direction * Speed;
+		MoveAndSlide();
+	}
+
+	protected void OnDmgBodyEntered(Node2D body)
+	{
+		if (body.IsInGroup("Enemy"))
+		{
+			Enemy enemy = GetNode<Enemy>(body.GetPath());
+			enemy.takeDamage(
+				DamageCalc(enemy.Defense, false).Damage);
+		}
+	}
+
+	protected (int Damage, bool isCrit) DamageCalc(float defense, bool invincible = false)
+	{
+		if (invincible)
+		{
+			return (0, false);
+		}
+		bool isCrit = false;
+		_rng = new RandomNumberGenerator();
+		float totalDamage = KickDamage * BaseAttack / (KickDamage + Defense);
+		float offset = _rng.RandfRange((-1) * totalDamage * 0.1f, totalDamage * 0.1f);
+		totalDamage += offset;
+
+		int criticalHit = _rng.RandiRange(0, 25);
+		if (criticalHit == 1)
+		{
+			totalDamage *= 1.5f;
+			isCrit = true;
+		}
+
+		return (Mathf.RoundToInt(totalDamage), isCrit);
+	}
+}

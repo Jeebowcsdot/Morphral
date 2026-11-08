@@ -1,54 +1,44 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 /// <summary>
-/// ! Initial Positions for the collisionShapes:
-/// CollisionBody: (-313.0, -149.0)
-/// CollisionPelvis: (-313.0, 55.0)
-/// CollisionLegL: (-413.0, 195.0)
-/// CollisionLegR: (-192.0, 184.0)
+/// The script with all the attacks and features of the base player
 /// </summary>
 
 
-public partial class TestPlayer : CharacterBody2D
+public partial class TestPlayer : Player
 {
-	private Vector2 _direction = Vector2.Zero;
-	private float _speed = 650.0f;
-
 	private AnimatedSprite2D _sprite;
 	private CollisionShape2D _collisionBody;
 	private CollisionShape2D _collisionPelvis;
 	private CollisionShape2D _collisionLegL;
 	private CollisionShape2D _collisionLegR;
+	private CollisionShape2D _dmgCollision;
+
+	private RandomNumberGenerator _rng;
 	
 	public override void _Ready()
 	{
+		// Loads everything inside _Ready() from Player.cs
+		base._Ready();
+		
 		// Setting all Node Variables
 		_sprite = GetNode<AnimatedSprite2D>("PlayerSpriteAnimated");
 		_collisionBody = GetNode<CollisionShape2D>("CollisionBody");
 		_collisionPelvis = GetNode<CollisionShape2D>("CollisionPelvis");
 		_collisionLegL = GetNode<CollisionShape2D>("CollisionLegL");
 		_collisionLegR = GetNode<CollisionShape2D>("CollisionLegR");
+		_dmgCollision = GetNode<CollisionShape2D>("DmgArea/DmgCollision");
 		
-		// Setting the Shape for all CollisionShape2D Nodes
-		// _collisionBody.Shape = new CapsuleShape2D();
-		// _collisionPelvis.Shape = new CapsuleShape2D();
-		// _collisionLegL.Shape = new CapsuleShape2D();
-		// _collisionLegR.Shape = new CapsuleShape2D();
-		
-		_sprite.Play("Idle");
-		updateCollision();
-
 		// Signals
-		_sprite.FrameChanged += updateCollision;
+		_sprite.FrameChanged += UpdateCollision;
 		_sprite.AnimationFinished += OnAnimationFinished;
-	}
-
-	public override void _PhysicsProcess(double delta)
-	{
-		_direction = Input.GetVector("MoveLeft", "MoveRight", "MoveUp", "MoveDown");
-		Velocity = _direction * _speed;
-		MoveAndSlide();
+		
+		// Basic tasks to do on Program start
+		_sprite.Play("Idle");
+		DamageArea.Hide();
+		UpdateCollision();
 	}
 
 	public override void _Input(InputEvent @event)
@@ -58,8 +48,16 @@ public partial class TestPlayer : CharacterBody2D
 			_sprite.Play("Kick");
 		}
 	}
-
-	private void updateCollision()
+	
+	private void OnAnimationFinished()
+	{
+		if (_sprite.Animation == "Kick")
+		{
+			_sprite.Play("Idle");
+		}
+	}
+	
+	private void UpdateCollision()
 	{
 		switch (_sprite.Animation)
 		{
@@ -133,16 +131,24 @@ public partial class TestPlayer : CharacterBody2D
 						_collisionLegR.RotationDegrees = -11.3f;
 						break;
 					case 4:
+						_dmgCollision.Position = new Vector2(527.5f, -500.0f);
+						_dmgCollision.RotationDegrees = 50.3f;
+						((CapsuleShape2D)GetNode<CollisionShape2D>("DmgArea/DmgCollision").Shape).Radius = 57.0f;
+						((CapsuleShape2D)GetNode<CollisionShape2D>("DmgArea/DmgCollision").Shape).Height = 218.0f;
+						DamageArea.Show();
+						DamageArea.Monitoring = true;
 						_collisionBody.Position = new Vector2(-137.5f, -210.0f);
 						_collisionBody.RotationDegrees = -33.1f;
 						_collisionPelvis.Position = new Vector2(0.0f, -132.5f);
 						_collisionPelvis.RotationDegrees = 22.7f;
-						_collisionLegL.Position = new Vector2(-20.0f, 185.0f);
+						_collisionLegL.Position = new Vector2(-20.0f, 225.0f);
 						_collisionLegL.RotationDegrees = -0.6f;
-						_collisionLegR.Position = new Vector2(-20.0f, 185.0f);
-						_collisionLegR.RotationDegrees = -0.6f;
+						_collisionLegR.Position = new Vector2(212.5f, -240.0f);
+						_collisionLegR.RotationDegrees = -128.8f;
 						break;
 					case 5:
+						DamageArea.Hide();
+						DamageArea.Monitoring = false;
 						_collisionBody.Position = new Vector2(-112.5f, -182.5f);
 						_collisionBody.RotationDegrees = -51.2f;
 						((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionBody").Shape).Height = 576.0f;
@@ -159,9 +165,8 @@ public partial class TestPlayer : CharacterBody2D
 						break;
 					case 6:
 						_collisionBody.Position = new Vector2(-115.0f, -182.5f);
-						_collisionBody.Rotation = -40.5f;
+						_collisionBody.RotationDegrees = -40.5f;
 						_collisionPelvis.Position = new Vector2(-2.5f, -105.0f);
-						// _collisionPelvis.RotationDegrees = 22.7f;
 						_collisionLegL.Position = new Vector2(77.5f, 167.5f);
 						_collisionLegL.RotationDegrees = 0.2f;
 						_collisionLegR.Position = new Vector2(-2.5f, -105.0f);
@@ -172,8 +177,7 @@ public partial class TestPlayer : CharacterBody2D
 						_collisionBody.Position = new Vector2(-172.5f, -190.0f);
 						_collisionBody.RotationDegrees = -35.0f;
 						((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionBody").Shape).Height = 576.0f;
-						_collisionPelvis.Position = new Vector2(-75.0f, 218.0f);
-						// _collisionPelvis.RotationDegrees = 22.7f;
+						_collisionPelvis.Position = new Vector2(-75.0f, -60.0f);
 						((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionPelvis").Shape).Radius = 109.0f;
 						((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionPelvis").Shape).Height = 218.0f;
 						_collisionLegL.Position = new Vector2(-65.0f, 185.0f);
@@ -186,14 +190,6 @@ public partial class TestPlayer : CharacterBody2D
 				}
 
 				break;
-		}
-	}
-
-	private void OnAnimationFinished()
-	{
-		if (_sprite.Animation == "Kick")
-		{
-			_sprite.Play("Idle");
 		}
 	}
 }

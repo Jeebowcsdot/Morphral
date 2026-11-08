@@ -1,0 +1,111 @@
+[gd_scene format=3 uid="uid://dxi7c48retl4l"]
+
+[ext_resource type="Script" uid="uid://djdg4ppwd0dp" path="res://Scripts/TestPlayer.cs" id="1_4qb2e"]
+[ext_resource type="Texture2D" uid="uid://722g2roqogcj" path="res://Sprites/Single Sprites/PlayerSpriteSheet0.png" id="2_elxym"]
+[ext_resource type="Texture2D" uid="uid://ky11f4q77l4q" path="res://Sprites/Single Sprites/PlayerSpriteSheet1.png" id="3_h8kk6"]
+[ext_resource type="Texture2D" uid="uid://b1bqoaj77iot0" path="res://Sprites/Single Sprites/PlayerSpriteSheet2.png" id="4_6fefc"]
+[ext_resource type="Texture2D" uid="uid://bxqwah7w3f7jh" path="res://Sprites/Single Sprites/PlayerSpriteSheet3.png" id="5_oa6le"]
+[ext_resource type="Texture2D" uid="uid://c6d6iepgd7dui" path="res://Sprites/Single Sprites/PlayerSpriteSheet4.png" id="6_gs1mh"]
+[ext_resource type="Texture2D" uid="uid://didegfxanumjc" path="res://Sprites/Single Sprites/PlayerSpriteSheet5.png" id="7_6fefc"]
+[ext_resource type="Texture2D" uid="uid://bkg0tbpb41auj" path="res://Sprites/Single Sprites/PlayerSpriteSheet6.png" id="8_oa6le"]
+[ext_resource type="Texture2D" uid="uid://c8tptveyj2xpk" path="res://Sprites/Single Sprites/PlayerSpriteSheet7.png" id="9_gs1mh"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k3vus"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_elxym")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_elxym")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_h8kk6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_6fefc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_oa6le")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_gs1mh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_6fefc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_oa6le")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_gs1mh")
+}],
+"loop": 0,
+"name": &"Kick",
+"speed": 16.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uror3"]
+radius = 75.0
+height = 576.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ynpdj"]
+radius = 121.0
+height = 245.40414
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3jck7"]
+radius = 37.0
+height = 795.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ysfhm"]
+radius = 37.0
+height = 329.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4bt2o"]
+radius = 57.0
+height = 218.0
+
+[node name="TestPlayer" type="CharacterBody2D" unique_id=1008101840]
+z_index = 1
+scale = Vector2(0.4, 0.4)
+script = ExtResource("1_4qb2e")
+
+[node name="PlayerSpriteAnimated" type="AnimatedSprite2D" parent="." unique_id=308143250]
+sprite_frames = SubResource("SpriteFrames_k3vus")
+animation = &"Kick"
+frame = 7
+frame_progress = 1.0
+
+[node name="CollisionBody" type="CollisionShape2D" parent="." unique_id=1480141035]
+position = Vector2(-115, -182.5)
+rotation = -0.70685834
+shape = SubResource("CapsuleShape2D_uror3")
+
+[node name="CollisionPelvis" type="CollisionShape2D" parent="." unique_id=396085511]
+position = Vector2(-80, -60)
+rotation = 0.39595625
+shape = SubResource("CapsuleShape2D_ynpdj")
+
+[node name="CollisionLegL" type="CollisionShape2D" parent="." unique_id=1009484157]
+position = Vector2(-20, 225)
+rotation = 0.010471975
+shape = SubResource("CapsuleShape2D_3jck7")
+
+[node name="CollisionLegR" type="CollisionShape2D" parent="." unique_id=2098614794]
+position = Vector2(-2.5, 22.7)
+rotation = -2.2488337
+shape = SubResource("CapsuleShape2D_ysfhm")
+
+[node name="DmgArea" type="Area2D" parent="." unique_id=1686249963]
+
+[node name="DmgCollision" type="CollisionShape2D" parent="DmgArea" unique_id=1692322928]
+position = Vector2(527.50006, -500)
+rotation = 0.87846076
+scale = Vector2(0.92795455, 1.0656195)
+shape = SubResource("CapsuleShape2D_4bt2o")
+debug_color = Color(0.99999994, 0.17328465, 0.2358275, 0.41960785)
