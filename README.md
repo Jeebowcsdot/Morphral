@@ -3,6 +3,18 @@
 ## About Morphral
 Morphral (temporary placeholder name) is an RPG-Game inspired by Undertale and Yo-Kai Watch. You get to choose between killing and befriend your enemies. Killing them gives you the ability to transform into them. Befriending them will allow you to summon them for help at later stages of the game. 
 
+## How to Play
+Either open it in **Godot Engine 4** (the .NET version for C# support) or download the latest release [here](https://github.com/Jeebowcsdot/Morphral/releases/tag/v0.0.3).  
+**Important**: The most recent release only works on Linux. If you are on another Operating System (Windows, MacOS), you can only play it if you open it in the engine using the source code.
+
+## How to open the game in Godot Engine 4
+1. Download the [latest Godot .NET release](https://godotengine.org/download/) and the [game's source code](https://github.com/Jeebowcsdot/Morphral/releases/tag/v0.0.3)
+2. Extract the game's source code on your computer
+3. Open Godot Engine 4
+4. Press "Import" (top left corner, next to "Create")
+5. Navigate to the extracted source code folder and select the Project.Godot file
+6. Open it and enjoy!
+
 ## Controls
 Spacebar: Attacking
 
