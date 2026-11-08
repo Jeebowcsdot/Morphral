@@ -39,7 +39,7 @@ public partial class Enemy : RigidBody2D
 		_dmgLabel.CallDeferred("queue_free");
 	}
 
-	public void takeDamage(float dmg)
+	public void takeDamage(int dmg, bool isCrit = false)
 	{
 		Hp -= dmg; 
 		Label label = new Label();
@@ -47,6 +47,13 @@ public partial class Enemy : RigidBody2D
 		label.AddThemeFontOverride("font", GD.Load<Font>("res://Fonts/sigmarcyrillic.otf"));
 		label.Position = new Vector2(_labelPosition.X + _rng.RandfRange(-25.0f, 25.0f), _labelPosition.Y + _rng.RandfRange(-25.0f, 25.0f));
 		label.Text = $"{dmg}";
+		label.AddThemeConstantOverride("outline_size", 15);
+		label.AddThemeColorOverride("font_outline_color", Colors.Black);
+		if (isCrit)
+		{
+			label.AddThemeColorOverride("font_color", Colors.DarkOrange);
+			label.AddThemeColorOverride("font_outline_color", new Color(225, 0, 0));
+		}
 		AddChild(label);
 		_labelArray.Add(label);
 		// _dmgTimer.Start();

@@ -188,7 +188,6 @@ public partial class TestPlayer : Player
 						((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionLegR").Shape).Height = 634.5f;
 						break;
 				}
-
 				break;
 		}
 	}

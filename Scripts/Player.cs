@@ -40,8 +40,10 @@ public partial class Player : CharacterBody2D
 		if (body.IsInGroup("Enemy"))
 		{
 			Enemy enemy = GetNode<Enemy>(body.GetPath());
-			enemy.takeDamage(
-				DamageCalc(enemy.Defense, false).Damage);
+			var (damage, isCrit) = DamageCalc(enemy.Defense, false);
+			enemy.takeDamage(damage, isCrit);
+			// enemy.takeDamage(
+			// 	DamageCalc(enemy.Defense, false));
 		}
 	}
 
@@ -57,7 +59,7 @@ public partial class Player : CharacterBody2D
 		float offset = _rng.RandfRange((-1) * totalDamage * 0.1f, totalDamage * 0.1f);
 		totalDamage += offset;
 
-		int criticalHit = _rng.RandiRange(0, 25);
+		int criticalHit = _rng.RandiRange(0, 19); // 5% Chance
 		if (criticalHit == 1)
 		{
 			totalDamage *= 1.5f;
