@@ -78,6 +78,8 @@ script = ExtResource("1_4qb2e")
 [node name="PlayerSpriteAnimated" type="AnimatedSprite2D" parent="." unique_id=308143250]
 sprite_frames = SubResource("SpriteFrames_k3vus")
 animation = &"Kick"
+frame = 4
+frame_progress = 0.21530426
 
 [node name="CollisionBody" type="CollisionShape2D" parent="." unique_id=1480141035]
 position = Vector2(-115, -182.5)
@@ -107,3 +109,6 @@ rotation = 0.87846076
 scale = Vector2(0.92795455, 1.0656195)
 shape = SubResource("CapsuleShape2D_4bt2o")
 debug_color = Color(0.99999994, 0.17328465, 0.2358275, 0.41960785)
+
+[node name="AttackPoint" type="Node2D" parent="DmgArea" unique_id=681928117]
+position = Vector2(582.5, -535)

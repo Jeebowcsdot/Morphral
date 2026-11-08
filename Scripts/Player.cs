@@ -18,6 +18,8 @@ public partial class Player : CharacterBody2D
 	
 	// (Child) Nodes
 	public Area2D DamageArea { get; protected set; }
+	public CollisionShape2D DamageCollision { get; protected set; }
+	public Node2D AttackPoint { get; protected set; }
 	
 	// Others
 	private RandomNumberGenerator _rng;
@@ -25,6 +27,8 @@ public partial class Player : CharacterBody2D
 	public override void _Ready()
 	{
 		DamageArea = GetNode<Area2D>("DmgArea");
+		DamageCollision = GetNode<CollisionShape2D>("DmgArea/DmgCollision");
+		AttackPoint = GetNode<Node2D>("DmgArea/AttackPoint");
 		DamageArea.BodyEntered += OnDmgBodyEntered;
 	}
 	
@@ -41,9 +45,7 @@ public partial class Player : CharacterBody2D
 		{
 			Enemy enemy = GetNode<Enemy>(body.GetPath());
 			var (damage, isCrit) = DamageCalc(enemy.Defense, false);
-			enemy.takeDamage(damage, isCrit);
-			// enemy.takeDamage(
-			// 	DamageCalc(enemy.Defense, false));
+			enemy.takeDamage(damage, AttackPoint.GlobalPosition, isCrit);
 		}
 	}
 
