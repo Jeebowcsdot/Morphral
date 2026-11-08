@@ -13,7 +13,7 @@ Either open it in **Godot Engine 4** (the .NET version for C# support) or downlo
 2. Extract the game's source code on your computer
 3. Open Godot Engine 4
 4. Press "Import" (top left corner, next to "Create")
-5. Navigate to the extracted source code folder and select the Project.Godot file
+5. Navigate to the extracted source code folder and select the project.godot file
 6. Open it and enjoy!
 
 ## Controls
