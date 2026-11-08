@@ -5,6 +5,7 @@ Morphral (temporary placeholder name) is an RPG-Game inspired by Undertale and Y
 
 ## Controls
 Spacebar: Attacking
+
 W-A-S-D: Moving
 
 ## Important Notice
