@@ -1,12 +1,10 @@
 using Godot;
-using System;
-using System.Collections.Generic;
+
+namespace Morph.Scripts;
 
 /// <summary>
 /// The script with all the attacks and features of the base player
 /// </summary>
-
-
 public partial class TestPlayer : Player
 {
 	private AnimatedSprite2D _sprite;
@@ -62,19 +60,19 @@ public partial class TestPlayer : Player
 		switch (_sprite.Animation)
 		{
 			case "Idle":
-				_collisionBody.Position = new Vector2(-313.0f, -149.0f);
+				_collisionBody.Position = new Vector2(-3.0f, -106.5f);
 				_collisionBody.RotationDegrees = 7.4f;
 				((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionBody").Shape).Radius = 75.0f;
 				((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionBody").Shape).Height = 690.0f;
-				_collisionPelvis.Position = new Vector2(-313.0f, 55.0f);
+				_collisionPelvis.Position = new Vector2(-3.0f, 97.5f);
 				_collisionPelvis.RotationDegrees = 93.4f;
 				((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionPelvis").Shape).Radius = 121.0f;
 				((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionPelvis").Shape).Height = 323.0f;
-				_collisionLegL.Position = new Vector2(-413.0f, 195.0f);
+				_collisionLegL.Position = new Vector2(-103.0f, 237.5f);
 				_collisionLegL.RotationDegrees = 20.6f;
 				((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionLegL").Shape).Radius = 37.0f;
 				((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionLegL").Shape).Height = 795.0f;
-				_collisionLegR.Position = new Vector2(-192.0f, 184.0f);
+				_collisionLegR.Position = new Vector2(118.0f, 226.5f);
 				_collisionLegR.RotationDegrees = -21.2f;
 				((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionLegR").Shape).Radius = 37.0f;
 				((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionLegR").Shape).Height = 795.0f;
@@ -83,107 +81,108 @@ public partial class TestPlayer : Player
 				switch (_sprite.Frame)
 				{
 					case 0:
-						_collisionBody.Position = new Vector2(-313.0f, -149.0f);
+						_collisionBody.Position = new Vector2(-3.0f, -106.5f);
 						_collisionBody.RotationDegrees = 7.4f;
 						((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionBody").Shape).Radius = 75.0f;
 						((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionBody").Shape).Height = 690.0f;
-						_collisionPelvis.Position = new Vector2(-313.0f, 55.0f);
+						_collisionPelvis.Position = new Vector2(-3.0f, 97.5f);
 						_collisionPelvis.RotationDegrees = 93.4f;
 						((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionPelvis").Shape).Radius = 121.0f;
 						((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionPelvis").Shape).Height = 323.0f;
-						_collisionLegL.Position = new Vector2(-413.0f, 195.0f);
+						_collisionLegL.Position = new Vector2(-103.0f, 237.5f);
 						_collisionLegL.RotationDegrees = 20.6f;
 						((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionLegL").Shape).Radius = 37.0f;
 						((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionLegL").Shape).Height = 795.0f;
-						_collisionLegR.Position = new Vector2(-192.0f, 184.0f);
+						_collisionLegR.Position = new Vector2(118.0f, 226.5f);
 						_collisionLegR.RotationDegrees = -21.2f;
 						((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionLegR").Shape).Radius = 37.0f;
 						((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionLegR").Shape).Height = 795.0f;
 						break;
 					case 1:
-						_collisionBody.Position = new Vector2(-297.5f, -135.0f);
+						_collisionBody.Position = new Vector2(12.5f, -92.5f);
 						_collisionBody.RotationDegrees = 14.4f;
-						_collisionPelvis.Position = new Vector2(-312.5f, 37.5f);
+						_collisionPelvis.Position = new Vector2(-2.5f, 80.0f);
 						_collisionPelvis.RotationDegrees = 81.9f;
-						_collisionLegL.Position = new Vector2(-413.0f, 195.0f);
+						_collisionLegL.Position = new Vector2(-103.0f, 152.5f);
 						_collisionLegL.RotationDegrees = 20.6f;
-						_collisionLegR.Position = new Vector2(-135.0f, 167.5f);
+						_collisionLegR.Position = new Vector2(175.0f, 210.0f);
 						_collisionLegR.RotationDegrees = -21.9f;
 						break;
 					case 2:
-						_collisionBody.Position = new Vector2(-187.5f, -135.0f);
+						_collisionBody.Position = new Vector2(122.5f, -92.5f);
 						_collisionBody.RotationDegrees = -8.4f;
-						_collisionPelvis.Position = new Vector2(-172.5f, 75.0f);
-						_collisionPelvis.RotationDegrees = 81.9f;
-						_collisionLegL.Position = new Vector2(-267.5f, 185.0f);
+						_collisionPelvis.Position = new Vector2(115.0f, 62.5f);
+						_collisionPelvis.RotationDegrees = -66.4f;
+						_collisionLegL.Position = new Vector2(17.5f, 270.0f);
 						_collisionLegL.RotationDegrees = 22.7f;
-						_collisionLegR.Position = new Vector2(-92.5f, 155.0f);
+						_collisionLegR.Position = new Vector2(235.0f, 245.0f);
 						_collisionLegR.RotationDegrees = -11.3f;
 						break;
 					case 3:
-						_collisionBody.Position = new Vector2(-137.5f, -152.5f);
-						_collisionBody.RotationDegrees = -22.3f;
-						_collisionPelvis.Position = new Vector2(-37.5f, 20.0f);
+						_collisionBody.Position = new Vector2(167.5f, -117.5f);
+						_collisionBody.RotationDegrees = -21.6f;
+						_collisionPelvis.Position = new Vector2(272.5f, 62.5f);
 						_collisionPelvis.RotationDegrees = 81.9f;
-						_collisionLegL.Position = new Vector2(-55.0f, 185.0f);
-						_collisionLegL.RotationDegrees = -6.5f;
-						_collisionLegR.Position = new Vector2(-92.5f, 155.0f);
+						_collisionLegL.Position = new Vector2(327.5f, 270.0f);
+						_collisionLegL.RotationDegrees = 5.8f;
+						((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionLegL").Shape).Height = 675.0f;
+						_collisionLegR.Position = new Vector2(235.0f, 245.0f);
 						_collisionLegR.RotationDegrees = -11.3f;
 						break;
 					case 4:
-						_dmgCollision.Position = new Vector2(527.5f, -500.0f);
+						_dmgCollision.Position = new Vector2(837.5f, -457.5f);
 						_dmgCollision.RotationDegrees = 50.3f;
 						((CapsuleShape2D)GetNode<CollisionShape2D>("DmgArea/DmgCollision").Shape).Radius = 57.0f;
 						((CapsuleShape2D)GetNode<CollisionShape2D>("DmgArea/DmgCollision").Shape).Height = 218.0f;
 						DamageArea.Show();
 						DamageArea.Monitoring = true;
-						_collisionBody.Position = new Vector2(-137.5f, -210.0f);
+						_collisionBody.Position = new Vector2(172.5f, -167.5f);
 						_collisionBody.RotationDegrees = -33.1f;
-						_collisionPelvis.Position = new Vector2(0.0f, -132.5f);
+						_collisionPelvis.Position = new Vector2(332.5f, -92.5f);
 						_collisionPelvis.RotationDegrees = 22.7f;
-						_collisionLegL.Position = new Vector2(-20.0f, 225.0f);
+						_collisionLegL.Position = new Vector2(287.5f, 305.0f);
 						_collisionLegL.RotationDegrees = -0.6f;
-						_collisionLegR.Position = new Vector2(212.5f, -240.0f);
+						_collisionLegR.Position = new Vector2(522.5f, -197.5f);
 						_collisionLegR.RotationDegrees = -128.8f;
 						break;
 					case 5:
 						DamageArea.Hide();
 						DamageArea.Monitoring = false;
-						_collisionBody.Position = new Vector2(-112.5f, -182.5f);
+						_collisionBody.Position = new Vector2(202.5f, -190.0f);
 						_collisionBody.RotationDegrees = -51.2f;
 						((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionBody").Shape).Height = 576.0f;
-						_collisionPelvis.Position = new Vector2(22.5f, -145.0f);
+						_collisionPelvis.Position = new Vector2(332.5f, -102.5f);
 						_collisionPelvis.RotationDegrees = 22.7f;
 						((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionPelvis").Shape).Radius = 109.0f;
 						((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionPelvis").Shape).Height = 218.0f;
-						_collisionLegL.Position = new Vector2(85.0f, 212.5f);
+						_collisionLegL.Position = new Vector2(395.0f, 255.0f);
 						_collisionLegL.RotationDegrees = 0.2f;
 						((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionLegL").Shape).Height = 745.0f;
-						_collisionLegR.Position = new Vector2(90.0f, -237.5f);
+						_collisionLegR.Position = new Vector2(400.0f, -194.5f);
 						_collisionLegR.RotationDegrees = 52.0f;
 						((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionLegR").Shape).Height = 501.0f;
 						break;
 					case 6:
-						_collisionBody.Position = new Vector2(-115.0f, -182.5f);
+						_collisionBody.Position = new Vector2(195.0f, -140.0f);
 						_collisionBody.RotationDegrees = -40.5f;
-						_collisionPelvis.Position = new Vector2(-2.5f, -105.0f);
-						_collisionLegL.Position = new Vector2(77.5f, 167.5f);
+						_collisionPelvis.Position = new Vector2(332.5f, -92.5f);
+						_collisionLegL.Position = new Vector2(387.5f, 210.0f);
 						_collisionLegL.RotationDegrees = 0.2f;
-						_collisionLegR.Position = new Vector2(-2.5f, -105.0f);
+						_collisionLegR.Position = new Vector2(307.5f, -62.5f);
 						_collisionLegR.RotationDegrees = 22.7f;
 						((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionLegR").Shape).Height = 329.0f;
 						break;
 					case 7:
-						_collisionBody.Position = new Vector2(-172.5f, -190.0f);
+						_collisionBody.Position = new Vector2(207.5f, -167.5f);
 						_collisionBody.RotationDegrees = -35.0f;
 						((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionBody").Shape).Height = 576.0f;
-						_collisionPelvis.Position = new Vector2(-75.0f, -60.0f);
+						_collisionPelvis.Position = new Vector2(297.5f, -60.0f);
 						((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionPelvis").Shape).Radius = 109.0f;
 						((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionPelvis").Shape).Height = 218.0f;
-						_collisionLegL.Position = new Vector2(-65.0f, 185.0f);
+						_collisionLegL.Position = new Vector2(352.5f, 270.0f);
 						_collisionLegL.RotationDegrees = 0.2f;
 						((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionLegL").Shape).Height = 745.0f;
-						_collisionLegR.Position = new Vector2(-220.0f, 92.5f);
+						_collisionLegR.Position = new Vector2(205.0f, 132.5f);
 						_collisionLegR.RotationDegrees = 41.2f;
 						((CapsuleShape2D)GetNode<CollisionShape2D>("CollisionLegR").Shape).Height = 634.5f;
 						break;

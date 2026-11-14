@@ -1,40 +1,54 @@
-using Godot;
-using System;
-using System.Linq;
 using System.Collections.Generic;
+using Godot;
+
+namespace Morph.Scripts;
 
 public partial class Enemy : RigidBody2D
 {
-	private Label _dmgLabel;
-	private List<Label> _labelArray = new List<Label>();
-	private List<Timer> _timerArray = new List<Timer>();
-	// private Timer _dmgTimer;
-	private RandomNumberGenerator _rng;
+	// (Child-)Nodes
+	protected Label DmgLabel;
+	protected ProgressBar HealthBar;
+	protected Label HpLabel;
+	
+	public List<Label> LabelArray = new List<Label>();
+	public List<Timer> TimerArray = new List<Timer>();
 
 	// In-Game Stats
-	public float Hp { get; private set; } = 100.0f;
-	public float Defense { get; private set; } = 10.0f;
-	public float Attack { get; private set; } = 10.0f;
+	public float MaxHp { get; protected set; } = 100.0f;
+	public float Hp { get; protected set; } = 100.0f;
+	public float Defense { get; protected set; } = 10.0f;
+	public float Attack { get; protected set; } = 10.0f;
 	
 	private Vector2 _labelPosition;
+	private RandomNumberGenerator _rng;
 	
 	public override void _Ready()
 	{
 		// Setting Variables
-		_dmgLabel = GetNode<Label>("DamageLabel");
+		HpLabel = GetNode<Label>("HpLabel");
+		DmgLabel = GetNode<Label>("DamageLabel");
+		HealthBar = GetNode<ProgressBar>("HealthBar");
 		_rng = new RandomNumberGenerator();
 		
 		// RigidBody2D Modifier
 		GravityScale = 0.0f;
 		
 		// Get Label Info
-		_labelPosition = _dmgLabel.Position;
-		_dmgLabel.CallDeferred("queue_free");
+		_labelPosition = DmgLabel.Position;
+		DmgLabel.CallDeferred("queue_free");
+		
+		// Health Bar setup
+		HealthBar.MaxValue = MaxHp;
+		HealthBar.Value = MaxHp;
+		HpLabel.Text = Hp + " / " + MaxHp;
+
 	}
 
 	public void takeDamage(int dmg, Vector2 labelPos, bool isCrit = false)
 	{
-		Hp -= dmg; 
+		Hp -= dmg;
+		HealthBar.Value -= dmg;
+		HpLabel.Text = Hp + " / " + MaxHp;
 		Label label = new Label();
 		label.AddThemeFontSizeOverride("font_size", 64);
 		label.AddThemeFontOverride("font", GD.Load<Font>("res://Fonts/sigmarcyrillic.otf"));
@@ -48,22 +62,19 @@ public partial class Enemy : RigidBody2D
 			label.AddThemeColorOverride("font_outline_color", new Color(225, 0, 0));
 		}
 		GetParent<Node2D>().AddChild(label);
-		_labelArray.Add(label);
-		Timer timer = new Timer();
-		this.AddChild(timer);
+		LabelArray.Add(label);
+		CustomTimer timer = new CustomTimer(label);
+		GD.Print(LabelArray.Count);
+		GetParent<Node2D>().AddChild(timer);
 		timer.WaitTime = 1.0f;
-		timer.Timeout += OnDmgTimeout;
-		_timerArray.Add(timer);
+		TimerArray.Add(timer);
 		timer.Start();
+
+		if (Hp <= 0)
+		{
+			this.CallDeferred("queue_free");
+		} 
 	}
 	
-	private void OnDmgTimeout()
-	{
-		Label currentLabel = _labelArray[0];
-		Timer currentTimer = _timerArray[0];
-		currentLabel.QueueFree();
-		currentTimer.QueueFree();
-		_labelArray.RemoveAt(0);
-		_timerArray.RemoveAt(0);
-	}
+
 }

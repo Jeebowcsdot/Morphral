@@ -1,10 +1,11 @@
-using Godot;
 using System;
+using Godot;
+
+namespace Morph.Scripts;
 
 /// <summary>
 /// the general player class with everything included that is needed for every player.
 /// </summary>
-
 public partial class Player : CharacterBody2D
 {
 	// Movement and Velocity
@@ -12,7 +13,7 @@ public partial class Player : CharacterBody2D
 	public  float Speed { get; protected set; } = 650.0f;
 
 	// Statistics and Combat
-	public float BaseAttack { get; protected set; } = 20.0f;
+	public float BaseAttack { get; protected init; } = 20.0f;
 	public  float KickDamage { get; protected set; } = 20.0f;
 	public float Defense { get; protected set; } = 25.0f;
 	
@@ -22,21 +23,40 @@ public partial class Player : CharacterBody2D
 	public Node2D AttackPoint { get; protected set; }
 	
 	// Others
+	public Vector2 initialScale { get; protected set; }
 	private RandomNumberGenerator _rng;
 
 	public override void _Ready()
 	{
+		// Setting Variables
 		DamageArea = GetNode<Area2D>("DmgArea");
 		DamageCollision = GetNode<CollisionShape2D>("DmgArea/DmgCollision");
 		AttackPoint = GetNode<Node2D>("DmgArea/AttackPoint");
+		initialScale = GetScale();
+		
+		// Signals
 		DamageArea.BodyEntered += OnDmgBodyEntered;
+		
+		// Basic Setup on Ready
+		DamageArea.Monitoring = false;
 	}
-	
+
 	public override void _PhysicsProcess(double delta)
 	{
 		Direction = Input.GetVector("MoveLeft", "MoveRight", "MoveUp", "MoveDown");
 		Velocity = Direction * Speed;
 		MoveAndSlide();
+
+		if (Direction.X < 0)
+		{
+			Scale = new Vector2(initialScale.X, -Math.Abs(initialScale.Y));
+			RotationDegrees = 180.0f;
+		}
+		else if (Direction.X > 0)
+		{
+			Scale = initialScale;
+			RotationDegrees = 0.0f;
+		}
 	}
 
 	protected void OnDmgBodyEntered(Node2D body)

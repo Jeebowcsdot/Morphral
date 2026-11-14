@@ -1,5 +1,4 @@
-using Godot;
-using System;
+namespace Morph.Scripts;
 
 public partial class TestEnemy : Enemy
 {

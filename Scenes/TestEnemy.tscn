@@ -28,3 +28,20 @@ theme_override_colors/font_color = Color(0.88235295, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_amx23")
 theme_override_font_sizes/font_size = 64
 text = "6"
+
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=1694353328]
+offset_left = -237.0
+offset_top = -250.0
+offset_right = 237.0
+offset_bottom = -185.0
+theme_override_fonts/font = ExtResource("3_amx23")
+theme_override_font_sizes/font_size = 40
+
+[node name="HpLabel" type="Label" parent="." unique_id=1926244769]
+offset_top = -292.0
+offset_right = 237.0
+offset_bottom = -253.0
+theme_override_fonts/font = ExtResource("3_amx23")
+theme_override_font_sizes/font_size = 25
+text = "50 / 50"
+horizontal_alignment = 2
