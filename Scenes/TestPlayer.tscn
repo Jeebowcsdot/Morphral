@@ -78,8 +78,6 @@ script = ExtResource("1_4qb2e")
 [node name="PlayerSpriteAnimated" type="AnimatedSprite2D" parent="." unique_id=308143250]
 sprite_frames = SubResource("SpriteFrames_k3vus")
 animation = &"Kick"
-frame = 7
-frame_progress = 0.40237972
 offset = Vector2(309.99997, 42.5)
 
 [node name="CollisionBody" type="CollisionShape2D" parent="." unique_id=1480141035]

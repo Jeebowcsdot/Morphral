@@ -1,0 +1,142 @@
+{
+	"normal" : [
+		{
+			"id": 0,
+			"path": "res://Sprites/Stamina/Normal/wheelNormal0.png"
+		},
+		{
+			"id": 1,
+			"path": "res://Sprites/Stamina/Normal/wheelNormal1.png",
+		},
+		{
+			"id": 2,
+			"path": "res://Sprites/Stamina/Normal/wheelNormal2.png"
+		},
+		{
+			"id": 3,
+			"path": "res://Sprites/Stamina/Normal/wheelNormal3.png"
+		},
+		{
+			"id": 4,
+			"path": "res://Sprites/Stamina/Normal/wheelNormal4.png"
+		},
+		{
+			"id": 5,
+			"path": "res://Sprites/Stamina/Normal/wheelNormal5.png"
+		},
+		{
+			"id": 6,
+			"path": "res://Sprites/Stamina/Normal/wheelNormal6.png"
+		},
+		{
+			"id": 7,
+			"path": "res://Sprites/Stamina/Normal/wheelNormal7.png"
+		},
+		{
+			"id": 8,
+			"path": "res://Sprites/Stamina/Normal/wheelNormal8.png"
+		},
+		{
+			"id": 9,
+			"path": "res://Sprites/Stamina/Normal/wheelNormal9.png"
+		},
+		{
+			"id": 10,
+			"path": "res://Sprites/Stamina/Normal/wheelNormal10.png"
+		},
+		{
+			"id": 11,
+			"path": "res://Sprites/Stamina/Normal/wheelNormal11.png"
+		},
+		{
+			"id": 12,
+			"path": "res://Sprites/Stamina/Normal/wheelNormal12.png"
+		},
+		{
+			"id": 13,
+			"path": "res://Sprites/Stamina/Normal/wheelNormal13.png"
+		},
+		{
+			"id": 14,
+			"path": "res://Sprites/Stamina/Normal/wheelNormal14.png"
+		},
+		{
+			"id": 15,
+			"path": "res://Sprites/Stamina/Normal/wheelNormal15.png"
+		},
+		{
+			"id": 16,
+			"path": "res://Sprites/Stamina/Normal/wheelNormal16.png"
+		}
+	],
+	"tired": [
+		{
+			"id": 0,
+			"path": "res://Sprites/Stamina/Tired/wheelTired0.png"
+		},
+		{
+			"id": 1,
+			"path": "res://Sprites/Stamina/Tired/wheelTired1.png"
+		},
+		{
+			"id": 2,
+			"path": "res://Sprites/Stamina/Tired/wheelTired2.png"
+		},
+		{
+			"id": 3,
+			"path": "res://Sprites/Stamina/Tired/wheelTired3.png"
+		},
+		{
+			"id": 4,
+			"path": "res://Sprites/Stamina/Tired/wheelTired4.png"
+		},
+		{
+			"id": 5,
+			"path": "res://Sprites/Stamina/Tired/wheelTired5.png"
+		},
+		{
+			"id": 6,
+			"path": "res://Sprites/Stamina/Tired/wheelTired6.png"
+		},
+		{
+			"id": 7,
+			"path": "res://Sprites/Stamina/Tired/wheelTired7.png"
+		},
+		{
+			"id": 8,
+			"path": "res://Sprites/Stamina/Tired/wheelTired8.png"
+		},
+		{
+			"id": 9,
+			"path": "res://Sprites/Stamina/Tired/wheelTired9.png"
+		},
+		{
+			"id": 10,
+			"path": "res://Sprites/Stamina/Tired/wheelTired10.png"
+		},
+		{
+			"id": 11,
+			"path": "res://Sprites/Stamina/Tired/wheelTired11.png",
+		},
+		{
+			"id": 12,
+			"path": "res://Sprites/Stamina/Tired/wheelTired12.png"
+		},
+		{
+			"id": 13,
+			"path": "res://Sprites/Stamina/Tired/wheelTired13.png"
+		},
+		{
+			"id": 14,
+			"path": "res://Sprites/Stamina/Tired/wheelTired14.png"
+		},
+		{
+			"id": 15,
+			"path": "res://Sprites/Stamina/Tired/wheelTired15.png"
+		},
+		{
+			"id": 16,
+			"path": "res://Sprites/Stamina/Tired/wheelTired16.png"
+		}
+	]
+}

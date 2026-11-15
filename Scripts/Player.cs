@@ -10,12 +10,16 @@ public partial class Player : CharacterBody2D
 {
 	// Movement and Velocity
 	public Vector2 Direction { get; protected set; } = Vector2.Zero;
-	public  float Speed { get; protected set; } = 650.0f;
+	public float Speed { get; protected set; } = 800.0f;
+	public float SprintSpeed { get; protected set; } = 1200.0f;
+	public float Acceleration { get; protected set; } = 100.0f;
 
 	// Statistics and Combat
 	public float BaseAttack { get; protected init; } = 20.0f;
 	public  float KickDamage { get; protected set; } = 20.0f;
 	public float Defense { get; protected set; } = 25.0f;
+	public float Stamina { get; protected set; } = 80.0f;
+	public float StaminaMax { get; protected set; }
 	
 	// (Child) Nodes
 	public Area2D DamageArea { get; protected set; }
@@ -33,18 +37,32 @@ public partial class Player : CharacterBody2D
 		DamageCollision = GetNode<CollisionShape2D>("DmgArea/DmgCollision");
 		AttackPoint = GetNode<Node2D>("DmgArea/AttackPoint");
 		initialScale = GetScale();
+		StaminaMax = Stamina;
 		
 		// Signals
 		DamageArea.BodyEntered += OnDmgBodyEntered;
 		
 		// Basic Setup on Ready
 		DamageArea.Monitoring = false;
+		
+		// Spawn Stamina Wheel
+		StaminaWheel wheel = new StaminaWheel();
+		wheel.Position = new Vector2(-137.5f, -512.5f);
+		this.AddChild(wheel);
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
 		Direction = Input.GetVector("MoveLeft", "MoveRight", "MoveUp", "MoveDown");
-		Velocity = Direction * Speed;
+		if (Input.IsActionPressed("Sprint"))
+		{
+			Velocity = Velocity.MoveToward(Direction * SprintSpeed, Acceleration);
+			Stamina -= 4.0f * (float)delta;
+		}
+		else
+		{
+			Velocity = Velocity.MoveToward(Direction * Speed, Acceleration);
+		}
 		MoveAndSlide();
 
 		if (Direction.X < 0)
