@@ -44,6 +44,7 @@ public partial class TestPlayer : Player
 		if (Input.IsActionJustPressed("Attack"))
 		{
 			_sprite.Play("Kick");
+			GD.Print("runs");
 		}
 	}
 	

@@ -13,6 +13,7 @@ public partial class Player : CharacterBody2D
 	public float Speed { get; protected set; } = 800.0f;
 	public float SprintSpeed { get; protected set; } = 1200.0f;
 	public float Acceleration { get; protected set; } = 100.0f;
+	public StaminaWheel Wheel { get; protected set; }
 
 	// Statistics and Combat
 	public float BaseAttack { get; protected init; } = 20.0f;
@@ -46,9 +47,9 @@ public partial class Player : CharacterBody2D
 		DamageArea.Monitoring = false;
 		
 		// Spawn Stamina Wheel
-		StaminaWheel wheel = new StaminaWheel();
-		wheel.Position = new Vector2(-137.5f, -512.5f);
-		this.AddChild(wheel);
+		Wheel = new StaminaWheel();
+		Wheel.Position = new Vector2(-137.5f, -512.5f);
+		this.AddChild(Wheel);
 	}
 
 	public override void _PhysicsProcess(double delta)
