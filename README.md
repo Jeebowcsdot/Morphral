@@ -22,7 +22,8 @@ Either open it in **Godot Engine 4** (the .NET version for C# support) or downlo
 
 ## Controls
 Spacebar: Attacking  
-W-A-S-D: Moving
+W-A-S-D: Moving  
+*new*: Ctrl: Sprinting 
 
 ## Important Notice
 The game is currently in it's very early development stages. 
