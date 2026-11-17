@@ -30,6 +30,7 @@ public partial class Player : CharacterBody2D
 	// Others
 	public Vector2 initialScale { get; protected set; }
 	private RandomNumberGenerator _rng;
+	protected Timer exhaustionTimer;
 
 	public override void _Ready()
 	{
@@ -47,7 +48,7 @@ public partial class Player : CharacterBody2D
 		DamageArea.Monitoring = false;
 		
 		// Spawn Stamina Wheel
-		Wheel = new StaminaWheel();
+		Wheel = new StaminaWheel(StaminaMax);
 		Wheel.Position = new Vector2(-137.5f, -512.5f);
 		this.AddChild(Wheel);
 	}
@@ -55,14 +56,27 @@ public partial class Player : CharacterBody2D
 	public override void _PhysicsProcess(double delta)
 	{
 		Direction = Input.GetVector("MoveLeft", "MoveRight", "MoveUp", "MoveDown");
-		if (Input.IsActionPressed("Sprint"))
+		if (Input.IsActionPressed("Sprint") && Stamina >= 0.0f) // Sprinting
 		{
 			Velocity = Velocity.MoveToward(Direction * SprintSpeed, Acceleration);
-			Stamina -= 4.0f * (float)delta;
+			Stamina -= 20.0f * (float)delta;
+			Wheel.LowerStamina(20.0f * (float)delta);
 		}
-		else
+		else if (Stamina >= 0.0f)
 		{
 			Velocity = Velocity.MoveToward(Direction * Speed, Acceleration);
+		}
+		else if (Stamina <= 0.0f)
+		{
+			Velocity = Velocity.MoveToward(Direction * Speed / 3.0f, Acceleration);
+			if (exhaustionTimer == null)
+			{
+				exhaustionTimer = new Timer();
+				exhaustionTimer.Timeout += OnStaminaExhaustionTimeout;
+				this.AddChild(exhaustionTimer);
+				exhaustionTimer.WaitTime = 5.0f;
+				exhaustionTimer.Start();
+			}
 		}
 		MoveAndSlide();
 
@@ -76,8 +90,20 @@ public partial class Player : CharacterBody2D
 			Scale = initialScale;
 			RotationDegrees = 0.0f;
 		}
+		
+		if (Input.IsActionJustReleased("Sprint"))
+		{
+			
+		}
 	}
 
+	protected void OnStaminaExhaustionTimeout()
+	{
+		Stamina = StaminaMax;
+		exhaustionTimer.QueueFree();
+		exhaustionTimer = null;
+	}
+	
 	protected void OnDmgBodyEntered(Node2D body)
 	{
 		if (body.IsInGroup("Enemy"))
