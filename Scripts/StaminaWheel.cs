@@ -6,67 +6,132 @@ namespace Morph.Scripts;
 
 public partial class StaminaWheel : Node2D
 {
-	// public enum StaminaPercentage
-	// {
-	// 	ZeroSixteen,
-	// 	OneSixteen,
-	// 	TwoSixteen,
-	// 	ThreeSixteen,
-	// 	FourSixteen,
-	// 	FiveSixteen,
-	// 	SixSixteen,
-	// 	SevenSixteen,
-	// 	EightSixteen,
-	// 	NineSixteen,
-	// 	TenSixteen,
-	// 	ElevenSixteen,
-	// 	TwelveSixteen,
-	// 	ThirteenSixteen,
-	// 	FourteenSixteen,
-	// 	FifteenSixteen,
-	// 	SixteenSixteen
-	// }
-	//
-	// public StaminaPercentage Stamina = StaminaPercentage.SixteenSixteen;
+	public float StaminaMax;
 	public float Stamina;
 	public float StaminaPercent = 100.0f;
 	public List<Texture2D> NormalTextureList { get; private set; } = new List<Texture2D>();
 	public List<Texture2D> TiredTextureList { get; private set; } = new List<Texture2D>();
 	
 	private const string JsonPath = "res://Json/StaminaWheel.json";
-	private Sprite2D _sprite;
+	public Sprite2D Sprite; 
+	private Player _player;
 	
 	public StaminaWheel(float playerStamina)
 	{
-		Stamina = playerStamina;
+		StaminaMax = playerStamina;
 		LoadItem();
 	}
 	
 	public override void _Ready()
 	{
-		_sprite = GetNode<Sprite2D>("Sprite2D");
+		_player = this.GetParent<Player>();
+		Stamina = _player.Stamina;
+		StaminaMax = _player.StaminaMax;
+		// Sprite = GetNode<Sprite2D>("Sprite2D");
+		Sprite = new Sprite2D();
+		Sprite.Texture = GD.Load<Texture2D>("res://Sprites/Stamina/Normal/wheelNormal16.png");
+		Sprite.Scale = new Vector2(0.25f, 0.25f);
+		AddChild(Sprite);
 
-		_sprite = new Sprite2D();
-		_sprite.Texture = GD.Load<Texture2D>("res://Sprites/Stamina/Normal/wheelNormal16.png");
-		_sprite.Scale = new Vector2(0.25f, 0.25f);
-		AddChild(_sprite);
-		// GD.Print(TiredTextureList[0]);
-		// sprite.Texture = TiredTextureList[0];
+		Stamina = StaminaMax;
 	}
 
-	public void LowerStamina(float subtrahend)
+	public void LowerStamina()
 	{
-		Stamina -= subtrahend;
+		Stamina = _player.Stamina;
 		if (Stamina <= 0)
 		{
-			GetTired();
+			_player.OnTired();
 		}
+		else
+		{
+			Sprite.Texture = NormalTextureList[GetTextureInt()];
+		}
+		// else if (Stamina == StaminaMax || Stamina >= 15 * StaminaMax / 16)
+		// {
+		// 	_sprite.Texture = NormalTextureList[16];
+		// }
+		// else if (Stamina < 15 * StaminaMax / 16 && Stamina >= 14 * StaminaMax / 16)
+		// {
+		// 	_sprite.Texture = NormalTextureList[15];
+		// }
+		// else if (Stamina < 14 * StaminaMax / 16 && Stamina >= 13 * StaminaMax / 16)
+		// {
+		// 	_sprite.Texture = NormalTextureList[14];
+		// }
+		// else if (Stamina < 13 * StaminaMax / 16 && Stamina >= 12 * StaminaMax / 16)
+		// {
+		// 	_sprite.Texture = NormalTextureList[13];
+		// }
+		// else if (Stamina < 12 * StaminaMax / 16 && Stamina >= 11 * StaminaMax / 16)
+		// {
+		// 	_sprite.Texture = NormalTextureList[12];
+		// }
+		// else if (Stamina < 11 * StaminaMax / 16 && Stamina >= 10 * StaminaMax / 16)
+		// {
+		// 	_sprite.Texture = NormalTextureList[11];
+		// }
+		// else if (Stamina < 10 * StaminaMax / 16 && Stamina >= 9 * StaminaMax / 16)
+		// {
+		// 	_sprite.Texture = NormalTextureList[10];
+		// }
+		// else if (Stamina < 9 * StaminaMax / 16 && Stamina >= 8 * StaminaMax / 16)
+		// {
+		// 	_sprite.Texture = NormalTextureList[9];
+		// }
+		// else if (Stamina < 8 * StaminaMax / 16 && Stamina >= 7 * StaminaMax / 16)
+		// {
+		// 	_sprite.Texture = NormalTextureList[8];
+		// }
+		// else if (Stamina < 7 * StaminaMax / 16 && Stamina >= 6 * StaminaMax / 16)
+		// {
+		// 	_sprite.Texture = NormalTextureList[7];
+		// }
+		// else if (Stamina < 6 * StaminaMax / 16 && Stamina >= 5 * StaminaMax / 16)
+		// {
+		// 	_sprite.Texture = NormalTextureList[6];
+		// }
+		// else if (Stamina < 5 * StaminaMax / 16 && Stamina >= 4 * StaminaMax / 16)
+		// {
+		// 	_sprite.Texture = NormalTextureList[5];
+		// }
+		// else if (Stamina < 4 * StaminaMax / 16 && Stamina >= 3 * StaminaMax / 16)
+		// {
+		// 	_sprite.Texture = NormalTextureList[4];
+		// }
+		// else if (Stamina < 3 * StaminaMax / 16 && Stamina >= 2 * StaminaMax / 16)
+		// {
+		// 	_sprite.Texture = NormalTextureList[3];
+		// }
+		// else if (Stamina < 2 * StaminaMax / 16 && Stamina >= StaminaMax / 16)
+		// {
+		// 	_sprite.Texture = NormalTextureList[2];
+		// }
+		// else if (Stamina < StaminaMax / 16 && Stamina >= 0.0f)
+		// {
+		// 	_sprite.Texture = NormalTextureList[1];
+		// }
 	}
 
-	public void GetTired()
+	public int GetTextureInt()
 	{
-		_sprite.Texture = TiredTextureList[0];
+		float ratio = Mathf.Clamp(Stamina / StaminaMax, 0f, 1f);
+		int i = Mathf.Clamp((int)(ratio * 16.0f), 0, 16);
+		return i;
 	}
+
+	public void StaminaReset()
+	{
+		Stamina = StaminaMax;
+		Sprite.Texture = NormalTextureList[16];
+	}
+	
+	// public void GetTired()
+	// {
+	// 	_sprite.Texture = TiredTextureList[0];
+	// 	_player.CurrentStatus = Player.Status.Tired;
+	// 	_player.Defense = _player.DefenseSubtraction;
+	// }
 	
 	protected void LoadItem()
 	{
@@ -96,7 +161,6 @@ public partial class StaminaWheel : Node2D
 		{
 			Godot.Collections.Dictionary dict = item.AsGodotDictionary();
 			string path = dict["path"].AsString();
-			GD.Print(path);
 			TiredTextureList.Add(
 				GD.Load<Texture2D>(path));
 		}

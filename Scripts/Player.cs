@@ -8,6 +8,12 @@ namespace Morph.Scripts;
 /// </summary>
 public partial class Player : CharacterBody2D
 {
+	public enum Status
+	{
+		Default,
+		Tired
+	}
+
 	// Movement and Velocity
 	public Vector2 Direction { get; protected set; } = Vector2.Zero;
 	public float Speed { get; protected set; } = 800.0f;
@@ -19,8 +25,12 @@ public partial class Player : CharacterBody2D
 	public float BaseAttack { get; protected init; } = 20.0f;
 	public  float KickDamage { get; protected set; } = 20.0f;
 	public float Defense { get; protected set; } = 25.0f;
+	public float BaseDefense { get; protected set; } = 25.0f;
+	public float DefenseSubtraction { get; protected set; } = 10.0f;
 	public float Stamina { get; protected set; } = 80.0f;
 	public float StaminaMax { get; protected set; }
+
+	public Status CurrentStatus = Status.Default;
 	
 	// (Child) Nodes
 	public Area2D DamageArea { get; protected set; }
@@ -31,6 +41,7 @@ public partial class Player : CharacterBody2D
 	public Vector2 initialScale { get; protected set; }
 	private RandomNumberGenerator _rng;
 	protected Timer exhaustionTimer;
+	protected float timerTime = 5.0f;
 
 	public override void _Ready()
 	{
@@ -55,31 +66,41 @@ public partial class Player : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		GD.Print(Stamina);
 		Direction = Input.GetVector("MoveLeft", "MoveRight", "MoveUp", "MoveDown");
-		if (Input.IsActionPressed("Sprint") && Stamina >= 0.0f) // Sprinting
+		if (CurrentStatus == Status.Default)
 		{
-			Velocity = Velocity.MoveToward(Direction * SprintSpeed, Acceleration);
-			Stamina -= 20.0f * (float)delta;
-			Wheel.LowerStamina(20.0f * (float)delta);
-		}
-		else if (Stamina >= 0.0f)
-		{
-			Velocity = Velocity.MoveToward(Direction * Speed, Acceleration);
-		}
-		else if (Stamina <= 0.0f)
+			if (Input.IsActionPressed("Sprint") && Direction != Vector2.Zero)
+			{
+				Velocity = Velocity.MoveToward(Direction * SprintSpeed, Acceleration);
+				ChangeStamina(-10.0f * (float)delta);
+			}
+			else
+			{
+				Velocity = Velocity.MoveToward(Direction * Speed, Acceleration);
+				ChangeStamina(8.0f * (float)delta);
+			}
+		} 
+		else if (CurrentStatus == Status.Tired)
 		{
 			Velocity = Velocity.MoveToward(Direction * Speed / 3.0f, Acceleration);
+
+			Stamina += StaminaMax / timerTime * (float)delta;
+			float ratio = Mathf.Clamp(Stamina / StaminaMax, 0.0f, 1.0f);
+			int i = Mathf.Clamp((int)(ratio * 16.0f), 1, 16);
+			Wheel.Sprite.Texture = Wheel.TiredTextureList[i];
+			
 			if (exhaustionTimer == null)
 			{
 				exhaustionTimer = new Timer();
 				exhaustionTimer.Timeout += OnStaminaExhaustionTimeout;
 				this.AddChild(exhaustionTimer);
-				exhaustionTimer.WaitTime = 5.0f;
+				exhaustionTimer.WaitTime = timerTime;
 				exhaustionTimer.Start();
 			}
 		}
 		MoveAndSlide();
-
+		
 		if (Direction.X < 0)
 		{
 			Scale = new Vector2(initialScale.X, -Math.Abs(initialScale.Y));
@@ -90,18 +111,41 @@ public partial class Player : CharacterBody2D
 			Scale = initialScale;
 			RotationDegrees = 0.0f;
 		}
-		
-		if (Input.IsActionJustReleased("Sprint"))
-		{
-			
-		}
 	}
 
 	protected void OnStaminaExhaustionTimeout()
 	{
+		CurrentStatus = Status.Default;
+		Defense = BaseDefense;
+		Wheel.StaminaReset();
 		Stamina = StaminaMax;
 		exhaustionTimer.QueueFree();
 		exhaustionTimer = null;
+	}
+
+	protected void ChangeStamina(float amount)
+	{
+		if (Stamina + amount > StaminaMax)
+		{
+			Stamina = StaminaMax;
+		}
+		else if (Stamina + amount < 0)
+		{
+			Stamina = 0.0f;
+		}
+		else
+		{
+			Stamina += amount;	
+		}
+
+		Wheel.LowerStamina();
+	}
+	
+	public void OnTired()
+	{
+		Wheel.Sprite.Texture = Wheel.TiredTextureList[0];
+		CurrentStatus = Status.Tired;
+		Defense = BaseDefense - DefenseSubtraction;
 	}
 	
 	protected void OnDmgBodyEntered(Node2D body)

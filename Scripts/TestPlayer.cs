@@ -41,10 +41,10 @@ public partial class TestPlayer : Player
 
 	public override void _Input(InputEvent @event)
 	{
-		if (Input.IsActionJustPressed("Attack"))
+		if (Input.IsActionJustPressed("Attack") && CurrentStatus != Status.Tired)
 		{
 			_sprite.Play("Kick");
-			GD.Print("runs");
+			ChangeStamina(-10.0f);
 		}
 	}
 	
