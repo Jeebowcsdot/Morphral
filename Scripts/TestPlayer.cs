@@ -41,11 +41,30 @@ public partial class TestPlayer : Player
 
 	public override void _Input(InputEvent @event)
 	{
+		base._Input(@event);
+		
 		if (Input.IsActionJustPressed("Attack") && CurrentStatus != Status.Tired)
 		{
 			_sprite.Play("Kick");
-			ChangeStamina(-10.0f);
+			ChangeStamina(-8.0f);
 		}
+
+		if (Input.IsActionJustPressed("Dash") && CurrentStatus != Status.Tired && Direction != Vector2.Zero)
+		{
+			ChangeStamina(-15.0f);
+			Timer timer = new Timer();
+			timer.WaitTime = 0.1f;
+			timer.Timeout += () => OnDashTimeout(timer);
+			GetParent<Node2D>().AddChild(timer);
+			timer.Start();
+			Velocity = Direction * Speed * 5.0f;
+		}
+	}
+
+	private void OnDashTimeout(Timer timer)
+	{
+		timer.QueueFree();
+		Velocity = Vector2.Zero;
 	}
 	
 	private void OnAnimationFinished()

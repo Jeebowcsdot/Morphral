@@ -1,4 +1,5 @@
 using System;
+using System.Text.RegularExpressions;
 using Godot;
 
 namespace Morph.Scripts;
@@ -66,14 +67,13 @@ public partial class Player : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		GD.Print(Stamina);
 		Direction = Input.GetVector("MoveLeft", "MoveRight", "MoveUp", "MoveDown");
 		if (CurrentStatus == Status.Default)
 		{
 			if (Input.IsActionPressed("Sprint") && Direction != Vector2.Zero)
 			{
 				Velocity = Velocity.MoveToward(Direction * SprintSpeed, Acceleration);
-				ChangeStamina(-10.0f * (float)delta);
+				ChangeStamina(-8.0f * (float)delta);
 			}
 			else
 			{
@@ -100,19 +100,26 @@ public partial class Player : CharacterBody2D
 			}
 		}
 		MoveAndSlide();
-		
-		if (Direction.X < 0)
-		{
-			Scale = new Vector2(initialScale.X, -Math.Abs(initialScale.Y));
-			RotationDegrees = 180.0f;
-		}
-		else if (Direction.X > 0)
-		{
-			Scale = initialScale;
-			RotationDegrees = 0.0f;
-		}
 	}
 
+	public override void _Input(InputEvent @event)
+	{
+		if (@event is InputEventMouseButton eventMouseButton && eventMouseButton.ButtonIndex == MouseButton.Right)
+		{
+			if (GetGlobalMousePosition().X > this.Position.X)
+			{
+				Scale = initialScale;
+				RotationDegrees = 0.0f;
+			}
+			else if (GetGlobalMousePosition().X < this.Position.X)
+			{
+				Scale = new Vector2(initialScale.X, -Math.Abs(initialScale.Y));
+				RotationDegrees = 180.0f;
+			}
+		}
+		
+	}
+	
 	protected void OnStaminaExhaustionTimeout()
 	{
 		CurrentStatus = Status.Default;
@@ -125,19 +132,9 @@ public partial class Player : CharacterBody2D
 
 	protected void ChangeStamina(float amount)
 	{
-		if (Stamina + amount > StaminaMax)
-		{
-			Stamina = StaminaMax;
-		}
-		else if (Stamina + amount < 0)
-		{
-			Stamina = 0.0f;
-		}
-		else
-		{
-			Stamina += amount;	
-		}
-
+		if (Stamina + amount > StaminaMax) { Stamina = StaminaMax; }
+		else if (Stamina + amount < 0) { Stamina = 0.0f; }
+		else { Stamina += amount; }
 		Wheel.LowerStamina();
 	}
 	
