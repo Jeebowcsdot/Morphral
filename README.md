@@ -23,8 +23,8 @@ Either open it in **Godot Engine 4** (the .NET version for C# support) or downlo
 ## Controls
 **Leftclick**: Attack  
 **Rightclick**: Aim (left or right)  
-**Spacebar**: Dashing (while moving) 
-**W-A-S-D**: Moving  
+**Spacebar**: Dashing (while moving)   
+**W-A-S-D**: Moving 
 **Ctrl**: Sprinting 
 
 ## Important Notice
