@@ -21,11 +21,11 @@ Either open it in **Godot Engine 4** (the .NET version for C# support) or downlo
 6. Open it and enjoy!
 
 ## Controls
-Leftclick: Attack
-Rightclick: Aim (left or right)
-Spacebar: Dashing (while moving) 
-W-A-S-D: Moving  
-Ctrl: Sprinting 
+**Leftclick**: Attack  
+**Rightclick**: Aim (left or right)  
+**Spacebar**: Dashing (while moving) 
+**W-A-S-D**: Moving  
+**Ctrl**: Sprinting 
 
 ## Important Notice
 The game is currently in it's very early development stages. 
