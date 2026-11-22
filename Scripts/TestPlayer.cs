@@ -47,6 +47,7 @@ public partial class TestPlayer : Player
 		{
 			_sprite.Play("Kick");
 			ChangeStamina(-8.0f);
+			SpawnCooldownBar(nBar, this, 1.0f);
 		}
 
 		if (Input.IsActionJustPressed("Dash") && CurrentStatus != Status.Tired && Direction != Vector2.Zero)

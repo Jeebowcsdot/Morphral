@@ -19,7 +19,7 @@ public partial class StaminaWheel : Node2D
 	public StaminaWheel(float playerStamina)
 	{
 		StaminaMax = playerStamina;
-		LoadItem();
+		LoadTextures();
 	}
 	
 	public override void _Ready()
@@ -133,7 +133,7 @@ public partial class StaminaWheel : Node2D
 	// 	_player.Defense = _player.DefenseSubtraction;
 	// }
 	
-	protected void LoadItem()
+	protected void LoadTextures()
 	{
 		if (!FileAccess.FileExists(JsonPath))
 		{

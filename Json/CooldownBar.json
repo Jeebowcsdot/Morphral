@@ -1,0 +1,72 @@
+{
+	"Default": [
+		{
+			"id": 0,
+			"path": "res://Sprites/Stamina/Bar/bar0.png",
+		},
+		{
+			"id": 1,
+			"path": "res://Sprites/Stamina/Bar/bar1.png"
+		},
+		{
+			"id": 2,
+			"path": "res://Sprites/Stamina/Bar/bar2.png"
+		},
+		{
+			"id": 3,
+			"path": "res://Sprites/Stamina/Bar/bar3.png"
+		},
+		{
+			"id": 4,
+			"path": "res://Sprites/Stamina/Bar/bar4.png"
+		},
+		{
+			"id": 5,
+			"path": "res://Sprites/Stamina/Bar/bar5.png"
+		},
+		{
+			"id": 6,
+			"path": "res://Sprites/Stamina/Bar/bar6.png"
+		},
+		{
+			"id": 7,
+			"path": "res://Sprites/Stamina/Bar/bar7.png"
+		},
+		{
+			"id": 8,
+			"path": "res://Sprites/Stamina/Bar/bar8.png"
+		},
+		{
+			"id": 9,
+			"path": "res://Sprites/Stamina/Bar/bar9.png"
+		},
+		{
+			"id": 10,
+			"path": "res://Sprites/Stamina/Bar/bar10.png"
+		},
+		{
+			"id": 11,
+			"path": "res://Sprites/Stamina/Bar/bar11.png"
+		},
+		{
+			"id": 12,
+			"path": "res://Sprites/Stamina/Bar/bar12.png"
+		},
+		{
+			"id": 13,
+			"path": "res://Sprites/Stamina/Bar/bar13.png"
+		},
+		{
+			"id": 14,
+			"path": "res://Sprites/Stamina/Bar/bar14.png"
+		},
+		{
+			"id": 15,
+			"path": "res://Sprites/Stamina/Bar/bar15.png"
+		},
+		{
+			"id": 16,
+			"path": "res://Sprites/Stamina/Bar/bar16.png"
+		}
+	]
+}

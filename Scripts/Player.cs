@@ -30,6 +30,8 @@ public partial class Player : CharacterBody2D
 	public float DefenseSubtraction { get; protected set; } = 10.0f;
 	public float Stamina { get; protected set; } = 80.0f;
 	public float StaminaMax { get; protected set; }
+	public CooldownBar Bar { get; protected set; }
+	protected float nBar = 0.0f; 
 
 	public Status CurrentStatus = Status.Default;
 	
@@ -63,6 +65,11 @@ public partial class Player : CharacterBody2D
 		Wheel = new StaminaWheel(StaminaMax);
 		Wheel.Position = new Vector2(-137.5f, -512.5f);
 		this.AddChild(Wheel);
+		
+		// Spawn CooldownBar
+		// Bar = new CooldownBar();
+		// Bar.Position = new Vector2(0.0f, -690.0f);
+		// this.AddChild(Bar);
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -118,6 +125,33 @@ public partial class Player : CharacterBody2D
 			}
 		}
 		
+	}
+
+	protected void SpawnCooldownBar(float n, Player player, float t)
+	{
+		CooldownBar bar = new CooldownBar();
+		bar.Position = new Vector2(0.0f, -690.0f) + n * new Vector2(0.0f, -75.0f);
+		player.AddChild(bar);
+		nBar++;
+		
+		Timer timer = new Timer();
+		timer.WaitTime = t / 16.0f;
+		timer.Timeout += () => OnSpawnCooldownBarTimeout(bar, timer);
+		this.AddChild(timer);
+		timer.Start();
+	}
+	
+	private void OnSpawnCooldownBarTimeout(CooldownBar bar, Timer timer)
+	{
+		if (bar.i == 16)
+		{
+			nBar -= 1;
+			bar.QueueFree();
+			timer.QueueFree();
+			return;
+		}
+		bar.Sprite.Texture = bar.TextureList[bar.i];
+		bar.i += 1;
 	}
 	
 	protected void OnStaminaExhaustionTimeout()
