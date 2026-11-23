@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 namespace Morph.Scripts;
@@ -43,14 +44,14 @@ public partial class TestPlayer : Player
 	{
 		base._Input(@event);
 		
-		if (Input.IsActionJustPressed("Attack") && CurrentStatus != Status.Tired)
+		if (Input.IsActionJustPressed("Attack") && CurrentStatus != Status.Tired && !CooldownActions.Contains(Actions.RoundhouseKick))
 		{
 			_sprite.Play("Kick");
 			ChangeStamina(-8.0f);
-			SpawnCooldownBar(nBar, this, 1.0f);
+			SpawnCooldownBar(nBar, this, 0.8f, Actions.RoundhouseKick, "Roundhouse Kick");
 		}
 
-		if (Input.IsActionJustPressed("Dash") && CurrentStatus != Status.Tired && Direction != Vector2.Zero)
+		if (Input.IsActionJustPressed("Dash") && CurrentStatus != Status.Tired && Direction != Vector2.Zero && !CooldownActions.Contains(Actions.Dash))
 		{
 			ChangeStamina(-15.0f);
 			Timer timer = new Timer();
@@ -58,6 +59,7 @@ public partial class TestPlayer : Player
 			timer.Timeout += () => OnDashTimeout(timer);
 			GetParent<Node2D>().AddChild(timer);
 			timer.Start();
+			SpawnCooldownBar(nBar, this, 1.0f, Actions.Dash, "Dash");
 			Velocity = Direction * Speed * 5.0f;
 		}
 	}

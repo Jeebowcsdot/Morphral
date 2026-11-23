@@ -12,12 +12,13 @@ texture = ExtResource("1_jsvoh")
 
 [node name="Label" type="Label" parent="." unique_id=2145079748]
 offset_left = -200.0
-offset_top = -25.0
+offset_top = -41.0
 offset_right = 200.0
-offset_bottom = 25.0
+offset_bottom = 35.0
+rotation = 6.2831855
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_cnu3d")
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 32
 text = "Name"
 horizontal_alignment = 1
 vertical_alignment = 1

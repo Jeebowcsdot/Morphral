@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Godot;
 
@@ -15,12 +16,27 @@ public partial class Player : CharacterBody2D
 		Tired
 	}
 
+	public enum Actions
+	{
+		RoundhouseKick,
+		Dash
+	}
+
+	public enum Dir
+	{
+		Left,
+		Right,
+		Up,
+		Down
+	}
+
 	// Movement and Velocity
 	public Vector2 Direction { get; protected set; } = Vector2.Zero;
 	public float Speed { get; protected set; } = 800.0f;
 	public float SprintSpeed { get; protected set; } = 1200.0f;
 	public float Acceleration { get; protected set; } = 100.0f;
 	public StaminaWheel Wheel { get; protected set; }
+	public Dir CurrentDir { get; protected set; } = Dir.Right; 
 
 	// Statistics and Combat
 	public float BaseAttack { get; protected init; } = 20.0f;
@@ -31,7 +47,8 @@ public partial class Player : CharacterBody2D
 	public float Stamina { get; protected set; } = 80.0f;
 	public float StaminaMax { get; protected set; }
 	public CooldownBar Bar { get; protected set; }
-	protected float nBar = 0.0f; 
+	protected float nBar = 0.0f;
+	public List<Actions> CooldownActions { get; protected set; } = new List<Actions>();
 
 	public Status CurrentStatus = Status.Default;
 	
@@ -65,11 +82,6 @@ public partial class Player : CharacterBody2D
 		Wheel = new StaminaWheel(StaminaMax);
 		Wheel.Position = new Vector2(-137.5f, -512.5f);
 		this.AddChild(Wheel);
-		
-		// Spawn CooldownBar
-		// Bar = new CooldownBar();
-		// Bar.Position = new Vector2(0.0f, -690.0f);
-		// this.AddChild(Bar);
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -96,7 +108,6 @@ public partial class Player : CharacterBody2D
 			float ratio = Mathf.Clamp(Stamina / StaminaMax, 0.0f, 1.0f);
 			int i = Mathf.Clamp((int)(ratio * 16.0f), 1, 16);
 			Wheel.Sprite.Texture = Wheel.TiredTextureList[i];
-			
 			if (exhaustionTimer == null)
 			{
 				exhaustionTimer = new Timer();
@@ -117,34 +128,49 @@ public partial class Player : CharacterBody2D
 			{
 				Scale = initialScale;
 				RotationDegrees = 0.0f;
+				UpdateDir(Dir.Right);
+
 			}
 			else if (GetGlobalMousePosition().X < this.Position.X)
 			{
 				Scale = new Vector2(initialScale.X, -Math.Abs(initialScale.Y));
 				RotationDegrees = 180.0f;
+				UpdateDir(Dir.Left);
 			}
 		}
 		
 	}
 
-	protected void SpawnCooldownBar(float n, Player player, float t)
+	protected void UpdateDir(Dir dir)
 	{
+		
+	}
+
+	protected void SpawnCooldownBar(float n, Player player, float t, Actions action, string s)
+	{
+		// Basic setup
+		CooldownActions.Add(action);
 		CooldownBar bar = new CooldownBar();
-		bar.Position = new Vector2(0.0f, -690.0f) + n * new Vector2(0.0f, -75.0f);
 		player.AddChild(bar);
 		nBar++;
 		
+		// Child Node setup
+		bar.Position = new Vector2(0.0f, -690.0f) + n * new Vector2(0.0f, -75.0f);
+		bar.Label.Text = s;
+		
+		// Timer setup
 		Timer timer = new Timer();
 		timer.WaitTime = t / 16.0f;
-		timer.Timeout += () => OnSpawnCooldownBarTimeout(bar, timer);
+		timer.Timeout += () => OnSpawnCooldownBarTimeout(bar, timer, action);
 		this.AddChild(timer);
 		timer.Start();
 	}
 	
-	private void OnSpawnCooldownBarTimeout(CooldownBar bar, Timer timer)
+	private void OnSpawnCooldownBarTimeout(CooldownBar bar, Timer timer, Actions action)
 	{
 		if (bar.i == 16)
 		{
+			CooldownActions.Remove(action);
 			nBar -= 1;
 			bar.QueueFree();
 			timer.QueueFree();
