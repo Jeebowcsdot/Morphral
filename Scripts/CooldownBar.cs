@@ -71,6 +71,7 @@ public partial class CooldownBar : Node2D
 		}
 		else if (_player.CurrentDir == Player.Dir.Left)
 		{
+			GD.Print("runs");
 			Label.Scale = new Vector2(_initialScale.X, -Math.Abs(_initialScale.Y));
 			Label.RotationDegrees = 180.0f;
 			Label.Position = new Vector2(200.0f, -41.0f);
