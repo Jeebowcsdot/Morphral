@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using Morph.Scripts;
 
 public partial class CooldownBar : Node2D
 {
@@ -11,10 +12,12 @@ public partial class CooldownBar : Node2D
 	public Label Label;
 	private bool _flipH = false;
 	private Vector2 _initialScale = Vector2.One;
+	private Player _player;
 	
-	public CooldownBar()
+	public CooldownBar(Player player)
 	{
 		LoadTextures();
+		_player = player;
 	}
 
 	public override void _Ready()
@@ -38,25 +41,43 @@ public partial class CooldownBar : Node2D
 		Label.VerticalAlignment = VerticalAlignment.Center;
 	}
 
-	public void FlipBarH()
+	// public void FlipBarH()
+	// {
+	// 	if (_player.CurrentDir == Player.Dir.Right)
+	// 	{
+	// 		Label.Scale = _initialScale;
+	// 		Label.Rotation = 0.0f;
+	// 		Label.Position = new Vector2(-200.0f, -41.0f);
+	// 		_flipH = false;
+	// 	}
+	// 	else if (_player.CurrentDir == Player.Dir.Left)
+	// 	{
+	// 		Label.Scale = new Vector2(_initialScale.X, -Math.Abs(_initialScale.Y));
+	// 		Label.Rotation = 180.0f;
+	// 		Label.Position = new Vector2(200.0f, -41.0f);
+	// 		_flipH = true;
+	// 	}
+	//
+	// }
+
+	public override void _Input(InputEvent @event)
 	{
-		if (_flipH)
+		if (_player.CurrentDir == Player.Dir.Right)
 		{
 			Label.Scale = _initialScale;
 			Label.Rotation = 0.0f;
 			Label.Position = new Vector2(-200.0f, -41.0f);
 			_flipH = false;
 		}
-		else
+		else if (_player.CurrentDir == Player.Dir.Left)
 		{
 			Label.Scale = new Vector2(_initialScale.X, -Math.Abs(_initialScale.Y));
-			Label.Rotation = 180.0f;
+			Label.RotationDegrees = 180.0f;
 			Label.Position = new Vector2(200.0f, -41.0f);
 			_flipH = true;
 		}
-
 	}
-	
+
 	private void LoadTextures()
 	{
 		if (!FileAccess.FileExists(JsonPath))

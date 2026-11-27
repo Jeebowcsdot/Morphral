@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using Godot;
 
@@ -143,14 +144,14 @@ public partial class Player : CharacterBody2D
 
 	protected void UpdateDir(Dir dir)
 	{
-		
+		CurrentDir = dir;
 	}
 
 	protected void SpawnCooldownBar(float n, Player player, float t, Actions action, string s)
 	{
 		// Basic setup
 		CooldownActions.Add(action);
-		CooldownBar bar = new CooldownBar();
+		CooldownBar bar = new CooldownBar(this);
 		player.AddChild(bar);
 		nBar++;
 		
