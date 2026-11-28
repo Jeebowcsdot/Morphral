@@ -1,0 +1,12 @@
+{
+	"0": [
+		{
+			"Name": "Roundhouse Kick",
+			"Texture": "res://Sprites/Single Sprites/PlayerSpriteSheet4.png"
+		},
+		{
+			"Name": "Spin Hook Kick",
+			"Texture": "res://Sprites/Single Sprites/PlayerHookSheet2.png"
+		}
+	]
+}

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cl3atr0rsomux"]
 
-[ext_resource type="Script" uid="uid://c7elnmo58o7gd" path="res://Scripts/TestEnemy.cs" id="1_fwg11"]
+[ext_resource type="Script" uid="uid://c7elnmo58o7gd" path="res://Scripts/Entities/TestEnemy.cs" id="1_fwg11"]
 [ext_resource type="Texture2D" uid="uid://csgxbkor7i3na" path="res://icon.svg" id="2_b5pkw"]
 [ext_resource type="FontFile" uid="uid://beqmja1dckvv" path="res://Fonts/sigmarcyrillic.otf" id="3_amx23"]
 

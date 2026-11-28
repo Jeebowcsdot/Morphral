@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dxi7c48retl4l"]
 
-[ext_resource type="Script" uid="uid://djdg4ppwd0dp" path="res://Scripts/TestPlayer.cs" id="1_4qb2e"]
+[ext_resource type="Script" uid="uid://djdg4ppwd0dp" path="res://Scripts/Entities/TestPlayer.cs" id="1_4qb2e"]
 [ext_resource type="Texture2D" uid="uid://722g2roqogcj" path="res://Sprites/Single Sprites/PlayerSpriteSheet0.png" id="2_elxym"]
 [ext_resource type="Texture2D" uid="uid://ky11f4q77l4q" path="res://Sprites/Single Sprites/PlayerSpriteSheet1.png" id="3_h8kk6"]
 [ext_resource type="Texture2D" uid="uid://b1bqoaj77iot0" path="res://Sprites/Single Sprites/PlayerSpriteSheet2.png" id="4_6fefc"]
@@ -9,6 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://didegfxanumjc" path="res://Sprites/Single Sprites/PlayerSpriteSheet5.png" id="7_6fefc"]
 [ext_resource type="Texture2D" uid="uid://bkg0tbpb41auj" path="res://Sprites/Single Sprites/PlayerSpriteSheet6.png" id="8_oa6le"]
 [ext_resource type="Texture2D" uid="uid://c8tptveyj2xpk" path="res://Sprites/Single Sprites/PlayerSpriteSheet7.png" id="9_gs1mh"]
+[ext_resource type="Texture2D" uid="uid://gd2axvaocnyf" path="res://Sprites/Single Sprites/PlayerHookSheet0.png" id="10_cnhqr"]
+[ext_resource type="Texture2D" uid="uid://dxcw050ie4cka" path="res://Sprites/Single Sprites/PlayerHookSheet1.png" id="11_lhgmo"]
+[ext_resource type="Texture2D" uid="uid://bq16s0hnx5ejv" path="res://Sprites/Single Sprites/PlayerHookSheet2.png" id="12_q2y7x"]
+[ext_resource type="Texture2D" uid="uid://c1n2oglw5vob7" path="res://Sprites/Single Sprites/PlayerHookSheet3.png" id="13_aq8px"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_k3vus"]
 animations = [{
@@ -46,29 +50,49 @@ animations = [{
 "texture": ExtResource("9_gs1mh")
 }],
 "loop": 0,
-"name": &"Kick",
+"name": &"RoundhouseKick",
+"speed": 16.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_elxym")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_cnhqr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_lhgmo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_q2y7x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_aq8px")
+}],
+"loop": 0,
+"name": &"SpinHookKick",
 "speed": 16.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uror3"]
-radius = 75.0
+radius = 94.86931
 height = 576.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ynpdj"]
-radius = 120.71539
-height = 241.43079
+radius = 118.524765
+height = 237.04953
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3jck7"]
-radius = 37.0
-height = 675.2908
+radius = 40.028656
+height = 740.0035
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ysfhm"]
-radius = 37.0
-height = 795.0
+radius = 40.287766
+height = 521.94
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4bt2o"]
-radius = 57.0
-height = 218.0
+radius = 70.70935
+height = 189.79944
 
 [node name="TestPlayer" type="CharacterBody2D" unique_id=1008101840]
 z_index = 1
@@ -77,30 +101,32 @@ script = ExtResource("1_4qb2e")
 
 [node name="PlayerSpriteAnimated" type="AnimatedSprite2D" parent="." unique_id=308143250]
 sprite_frames = SubResource("SpriteFrames_k3vus")
-animation = &"Kick"
+animation = &"SpinHookKick"
+frame = 3
+frame_progress = 0.302739
 offset = Vector2(309.99997, 42.5)
 
 [node name="CollisionBody" type="CollisionShape2D" parent="." unique_id=1480141035]
-position = Vector2(207.5, -167.49998)
-rotation = -0.61086524
-scale = Vector2(0.9999999, 0.9999999)
+position = Vector2(357.5, -165)
+rotation = 0.82268476
+scale = Vector2(0.8349395, 0.9999999)
 shape = SubResource("CapsuleShape2D_uror3")
 
 [node name="CollisionPelvis" type="CollisionShape2D" parent="." unique_id=396085511]
-position = Vector2(297.49997, -60.000008)
-rotation = -2.068622
-scale = Vector2(0.9999999, 0.9999999)
+position = Vector2(170, -29.999996)
+rotation = -0.7686113
+scale = Vector2(1, 1.238)
 shape = SubResource("CapsuleShape2D_ynpdj")
 
 [node name="CollisionLegL" type="CollisionShape2D" parent="." unique_id=1009484157]
-position = Vector2(352.49997, 270)
-rotation = 0.0034906585
+position = Vector2(110, 360.00003)
+rotation = -0.0127699375
 scale = Vector2(0.99999994, 0.99999994)
 shape = SubResource("CapsuleShape2D_3jck7")
 
 [node name="CollisionLegR" type="CollisionShape2D" parent="." unique_id=2098614794]
-position = Vector2(205, 132.5)
-rotation = 0.7190757
+position = Vector2(250.00002, 87.499985)
+rotation = -0.56443226
 scale = Vector2(0.9999999, 0.9999999)
 shape = SubResource("CapsuleShape2D_ysfhm")
 
@@ -108,8 +134,8 @@ shape = SubResource("CapsuleShape2D_ysfhm")
 scale = Vector2(0.99999994, 0.99999994)
 
 [node name="DmgCollision" type="CollisionShape2D" parent="DmgArea" unique_id=1692322928]
-position = Vector2(527.50006, -500)
-rotation = 0.87846076
+position = Vector2(-197.5, -387.5)
+rotation = -0.8517301
 scale = Vector2(0.92795455, 1.0656195)
 shape = SubResource("CapsuleShape2D_4bt2o")
 debug_color = Color(0.99999994, 0.17328465, 0.2358275, 0.41960785)

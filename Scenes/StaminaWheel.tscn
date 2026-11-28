@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cmlimxfl8iwov"]
 
 [ext_resource type="Texture2D" uid="uid://baeptiwqu4mah" path="res://Sprites/Stamina/Normal/wheelNormal16.png" id="1_4gbkw"]
-[ext_resource type="Script" uid="uid://o7a6yrrhnqus" path="res://Scripts/StaminaWheel.cs" id="1_6xr35"]
+[ext_resource type="Script" uid="uid://o7a6yrrhnqus" path="res://Scripts/UI/StaminaWheel.cs" id="1_6xr35"]
 
 [node name="StaminaWheel" type="Node2D" unique_id=994579525]
 script = ExtResource("1_6xr35")

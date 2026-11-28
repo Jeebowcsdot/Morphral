@@ -1,7 +1,8 @@
-using Godot;
 using System;
 using System.Collections.Generic;
-using Morph.Scripts;
+using Godot;
+
+namespace Morph.Scripts.UI;
 
 public partial class CooldownBar : Node2D
 {
@@ -30,6 +31,7 @@ public partial class CooldownBar : Node2D
 
 		Label = new Label();
 		this.AddChild(Label);
+		// GetParent<Player>().GetParent<Node2D>().AddChild(Label);
 		Label.Position = new Vector2(-200.0f, -41.0f);
 		Label.Size = new Vector2(400.0f, 76.0f);
 		Label.AddThemeColorOverride("font_color", Colors.WhiteSmoke);
@@ -41,26 +43,7 @@ public partial class CooldownBar : Node2D
 		Label.VerticalAlignment = VerticalAlignment.Center;
 	}
 
-	// public void FlipBarH()
-	// {
-	// 	if (_player.CurrentDir == Player.Dir.Right)
-	// 	{
-	// 		Label.Scale = _initialScale;
-	// 		Label.Rotation = 0.0f;
-	// 		Label.Position = new Vector2(-200.0f, -41.0f);
-	// 		_flipH = false;
-	// 	}
-	// 	else if (_player.CurrentDir == Player.Dir.Left)
-	// 	{
-	// 		Label.Scale = new Vector2(_initialScale.X, -Math.Abs(_initialScale.Y));
-	// 		Label.Rotation = 180.0f;
-	// 		Label.Position = new Vector2(200.0f, -41.0f);
-	// 		_flipH = true;
-	// 	}
-	//
-	// }
-
-	public override void _Input(InputEvent @event)
+	public override void _PhysicsProcess(double delta)
 	{
 		if (_player.CurrentDir == Player.Dir.Right)
 		{
@@ -71,7 +54,6 @@ public partial class CooldownBar : Node2D
 		}
 		else if (_player.CurrentDir == Player.Dir.Left)
 		{
-			GD.Print("runs");
 			Label.Scale = new Vector2(_initialScale.X, -Math.Abs(_initialScale.Y));
 			Label.RotationDegrees = 180.0f;
 			Label.Position = new Vector2(200.0f, -41.0f);

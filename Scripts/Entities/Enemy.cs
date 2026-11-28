@@ -64,7 +64,6 @@ public partial class Enemy : RigidBody2D
 		GetParent<Node2D>().AddChild(label);
 		LabelArray.Add(label);
 		CustomTimer timer = new CustomTimer(label);
-		GD.Print(LabelArray.Count);
 		GetParent<Node2D>().AddChild(timer);
 		timer.WaitTime = 1.0f;
 		TimerArray.Add(timer);

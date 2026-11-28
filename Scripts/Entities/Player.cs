@@ -9,6 +9,7 @@ namespace Morph.Scripts;
 /// <summary>
 /// the general player class with everything included that is needed for every player.
 /// </summary>
+
 public partial class Player : CharacterBody2D
 {
 	public enum Status
@@ -31,6 +32,21 @@ public partial class Player : CharacterBody2D
 		Down
 	}
 
+	public enum Characters
+	{
+		TestPlayer,
+		TestEnemy
+	}
+	
+	// Morphing
+	public Characters PlayerChar { get; protected set; } = Characters.TestPlayer;
+	protected Godot.Collections.Dictionary InitialDict { get; set; }= 
+		new Godot.Collections.Dictionary();
+
+	protected Godot.Collections.Dictionary<Player.Characters, Attacks> AttackDict { get; set; } =
+		new Godot.Collections.Dictionary<Characters, Attacks>();
+	private const string JsonPath = "res://Json/Attacks.json";
+	
 	// Movement and Velocity
 	public Vector2 Direction { get; protected set; } = Vector2.Zero;
 	public float Speed { get; protected set; } = 800.0f;
@@ -47,7 +63,9 @@ public partial class Player : CharacterBody2D
 	public float DefenseSubtraction { get; protected set; } = 10.0f;
 	public float Stamina { get; protected set; } = 80.0f;
 	public float StaminaMax { get; protected set; }
-	public CooldownBar Bar { get; protected set; }
+	public UI.CooldownBar Bar { get; protected set; }
+	public List<Attacks> PlayerAttacks { get; protected set; }
+	
 	protected float nBar = 0.0f;
 	public List<Actions> CooldownActions { get; protected set; } = new List<Actions>();
 
@@ -66,6 +84,9 @@ public partial class Player : CharacterBody2D
 
 	public override void _Ready()
 	{
+		// Setup
+		LoadAttacks();
+		
 		// Setting Variables
 		DamageArea = GetNode<Area2D>("DmgArea");
 		DamageCollision = GetNode<CollisionShape2D>("DmgArea/DmgCollision");
@@ -151,7 +172,7 @@ public partial class Player : CharacterBody2D
 	{
 		// Basic setup
 		CooldownActions.Add(action);
-		CooldownBar bar = new CooldownBar(this);
+		UI.CooldownBar bar = new UI.CooldownBar(this);
 		player.AddChild(bar);
 		nBar++;
 		
@@ -167,7 +188,7 @@ public partial class Player : CharacterBody2D
 		timer.Start();
 	}
 	
-	private void OnSpawnCooldownBarTimeout(CooldownBar bar, Timer timer, Actions action)
+	private void OnSpawnCooldownBarTimeout(UI.CooldownBar bar, Timer timer, Actions action)
 	{
 		if (bar.i == 16)
 		{
@@ -236,5 +257,40 @@ public partial class Player : CharacterBody2D
 		}
 
 		return (Mathf.RoundToInt(totalDamage), isCrit);
+	}
+
+	private void LoadAttacks()
+	{
+		if (!FileAccess.FileExists(JsonPath))
+		{
+			GD.PushError("File not found");
+			return;
+		}
+
+		FileAccess file = FileAccess.Open(JsonPath, FileAccess.ModeFlags.Read);
+		Variant data = Json.ParseString(file.GetAsText());
+		InitialDict = data.AsGodotDictionary();
+		
+		foreach (var (key, value) in InitialDict)
+		{
+			int index = (int)key;
+			Characters Char = (Characters)index;
+			
+			Godot.Collections.Array<Godot.Collections.Dictionary<string, string>> valueArray 
+				= value.AsGodotArray<Godot.Collections.Dictionary<string, string>>(); // converts the Variant into an Array
+
+			List<Attacks> list = new List<Attacks>();
+			for (int i = 0; i < valueArray.Count; i++)
+			{
+				Godot.Collections.Dictionary<string, string> dict = valueArray[i];
+				string name = dict["Name"];
+				Texture2D texture = GD.Load<Texture2D>(dict["Texture"]);
+				Attacks a = new Attacks((Characters)index, name, texture);
+				list.Add(a);
+			}
+			// AttackDict
+			GD.Print(AttackDict);
+			
+		}
 	}
 }

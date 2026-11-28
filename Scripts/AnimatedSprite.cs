@@ -18,7 +18,6 @@ public partial class AnimatedSprite : AnimatedSprite2D
 	// 	{
 	// 		if (lookedLeft)
 	// 		{ 
-	// 			GD.Print("runs");
 	// 			this.FlipH = false;
 	// 			lookedLeft = false;
 	// 		}

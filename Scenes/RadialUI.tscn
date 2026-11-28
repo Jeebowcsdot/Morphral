@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://4chhhm8t0cf6"]
+
+[ext_resource type="Script" uid="uid://d1bht0rnsey4a" path="res://Scripts/UI/RadialUI.cs" id="1_4o6r7"]
+
+[node name="RadialUI" type="CanvasLayer" unique_id=1781262082]
+
+[node name="RadialUI" type="Control" parent="." unique_id=1708785590]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_4o6r7")
+BgColor = Color(0, 0, 0, 0.5568628)
